@@ -20,7 +20,7 @@ $ npm install --save yax
 ### Usage Example
 
 ```javascript
-import { Store } from 'yax';
+import yax from 'yax';
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -45,9 +45,13 @@ const count = {
     }
   }
 };
-const store = new Store({
+const store = new yax.Store({
   modules: { count }
 });
+
+store.subscribe(() =>
+  console.log(store.getState())
+);
 
 store.dispatch({
   type: 'count/add',
