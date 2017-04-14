@@ -1,0 +1,16 @@
+{
+  "presets": ["stage-2"],
+  "plugins": ["transform-runtime"],
+  "env": {
+    "cjs": {
+      "presets": [["env", {"loose": true}]]
+    },
+    "es": {
+      "presets": [["env", {"loose": true, "modules": false}]]
+    },
+    "test": {
+      "presets": [["env", {"loose": true}]],
+      "plugins": ["istanbul"]
+    }
+  }
+}
