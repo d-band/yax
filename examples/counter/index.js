@@ -24,7 +24,7 @@ const count = {
   }
 };
 
-const store = new yax.Store({
+const store = yax({
   modules: { count }
 });
 
