@@ -24,7 +24,7 @@ export default function yax (options = {}) {
   };
   const _store = createStore(
     _modules.root.makeReduers(),
-    {},
+    options.state || {},
     applyMiddleware(middleware)
   );
 

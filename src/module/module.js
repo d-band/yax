@@ -49,11 +49,12 @@ export default class Module {
   }
 
   makeReduers () {
+    let hasChild = false;
     const tmp = {};
     this.forEachChild((child, key) => {
+      hasChild = true;
       tmp[key] = child.makeReduers();
     });
-    const nestedReducer = combineReducers(tmp);
 
     return (state = this.state, action) => {
       const { type, payload } = action;
@@ -61,7 +62,10 @@ export default class Module {
       if (handler) {
         return handler(state, payload);
       }
-      return nestedReducer(state, action);
+      if (hasChild) {
+        return combineReducers(tmp)(state, action);
+      }
+      return state;
     };
   }
 }
