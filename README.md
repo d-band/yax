@@ -63,6 +63,28 @@ store.dispatch({
 });
 ```
 
+Usage with React
+
+```
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import yax from 'yax';
+import count from './count';
+import App from './App';
+
+const store = yax({
+  modules: { count }
+});
+
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+```
+
 ## Report a issue
 
 * [All issues](https://github.com/d-band/yax/issues)
