@@ -21,7 +21,17 @@ export default class ModuleCollection {
   }
 
   makeReducers () {
-    return this.root.makeReducers();
+    return (state, action) => {
+      const { type, path } = action;
+      if (type === '@@yax/unregister') {
+        const parent = path.slice(0, -1).reduce((cur, p) => {
+          return cur[p];
+        }, state);
+        delete parent[path[path.length - 1]];
+        return state;
+      }
+      return this.root.makeReducers()(state, action);
+    };
   }
 
   getNamespace (path) {

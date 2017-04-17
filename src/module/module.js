@@ -9,7 +9,11 @@ export default class Module {
   }
 
   get state () {
-    return this._rawModule.state;
+    const { state } = this._rawModule;
+    if (state === undefined) {
+      return {};
+    }
+    return state;
   }
 
   addChild (key, module) {
@@ -48,21 +52,22 @@ export default class Module {
     this._reducers[actionType] = handler;
   }
 
-  makeReduers () {
-    let hasChild = false;
-    const tmp = {};
-    this.forEachChild((child, key) => {
-      hasChild = true;
-      tmp[key] = child.makeReduers();
-    });
-
+  makeReducers () {
     return (state = this.state, action) => {
       const { type, payload } = action;
       const handler = this._reducers[type];
       if (handler) {
         return handler(state, payload);
       }
-      if (hasChild) {
+      if (Object.keys(this._children).length) {
+        const tmp = {};
+        forEachValue(state, (data, key) => {
+          tmp[key] = (v = data) => v;
+        });
+        this.forEachChild((child, key) => {
+          tmp[key] = child.makeReducers();
+        });
+
         return combineReducers(tmp)(state, action);
       }
       return state;

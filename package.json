@@ -23,7 +23,7 @@
   },
   "nyc": {
     "include": [
-      "src/*.js"
+      "src/**/*.js"
     ],
     "require": [
       "babel-register"

@@ -23,7 +23,7 @@ export default function yax (options = {}) {
     return next(action);
   };
   const _store = createStore(
-    _modules.root.makeReduers(),
+    _modules.makeReducers(),
     options.state || {},
     applyMiddleware(middleware)
   );
@@ -41,6 +41,7 @@ export default function yax (options = {}) {
     assert(Array.isArray(path), `module path must be a string or an Array.`);
     _modules.unregister(path);
     _resetStore();
+    _store.dispatch({ type: '@@yax/unregister', path });
   }
 
   return {
@@ -116,7 +117,7 @@ export default function yax (options = {}) {
   }
 
   function _resetReducers () {
-    const reducer = _modules.root.makeReduers();
+    const reducer = _modules.makeReducers();
     _store.replaceReducer(reducer);
   }
 
