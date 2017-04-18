@@ -74,7 +74,7 @@ export default function yax (options = {}) {
         // redux state
         const rootState = _store.getState();
         const state = _getNestedState(rootState, path);
-        return fn(state, rootState);
+        return fn ? fn(state, rootState) : state;
       }
     };
 

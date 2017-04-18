@@ -91,8 +91,8 @@ describe('basic', () => {
           },
           actions: {
             add ({ commit, select }) {
-              const v = select(state => state.a);
-              commit('addDone', v);
+              const { a } = select();
+              commit('addDone', a);
             },
             minus ({ commit, select }) {
               const v = select((state, rootState) => rootState.foo);
