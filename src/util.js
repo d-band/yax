@@ -16,3 +16,9 @@ export function isPromise (val) {
 export function assert (condition, msg) {
   if (!condition) throw new Error(`[yax] ${msg}`);
 }
+
+export function compose (...reducers) {
+  return (state, action) => {
+    return reducers.reduce((p, r) => r(p, action), state);
+  };
+}

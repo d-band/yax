@@ -1,5 +1,5 @@
 import Module from './module';
-import { forEachValue } from '../util';
+import { compose, forEachValue } from '../util';
 
 export default class ModuleCollection {
   constructor (rawRootModule) {
@@ -21,17 +21,17 @@ export default class ModuleCollection {
   }
 
   makeReducers () {
-    return (state, action) => {
+    const unregister = (state, action) => {
       const { type, path } = action;
       if (type === '@@yax/unregister') {
         const parent = path.slice(0, -1).reduce((cur, p) => {
           return cur[p];
         }, state);
         delete parent[path[path.length - 1]];
-        return state;
       }
-      return this.root.makeReducers()(state, action);
+      return state;
     };
+    return compose(unregister, this.root.makeReducers());
   }
 
   getNamespace (path) {
