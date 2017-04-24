@@ -1,6 +1,6 @@
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+export const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-export default {
+export const count = {
   state: 0,
   reducers: {
     addDone (state, payload) {

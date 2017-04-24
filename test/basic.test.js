@@ -1,6 +1,6 @@
 import expect from 'expect';
 import yax from '../src/index';
-import count from './count';
+import { count, delay } from './count';
 
 describe('basic', () => {
   it('basic module', (done) => {
@@ -19,6 +19,51 @@ describe('basic', () => {
 
     setTimeout(() => {
       expect(store.getState().count).toEqual(1);
+      done();
+    }, 100);
+  });
+
+  it('basic module with root dispatch', (done) => {
+    const store = yax({
+      modules: {
+        foo: {
+          state: 0,
+          reducers: {
+            addDone (state, payload) {
+              return state + payload;
+            }
+          },
+          actions: {
+            async add ({ dispatch, commit }) {
+              await dispatch('bar/add', null, true);
+              commit('addDone', 1);
+            }
+          }
+        },
+        bar: {
+          state: 0,
+          reducers: {
+            addDone (state, payload) {
+              return state + payload;
+            }
+          },
+          actions: {
+            async add ({ dispatch, commit }) {
+              await delay(1);
+              commit('addDone', 1);
+            }
+          }
+        }
+      }
+    });
+
+    store.dispatch({
+      type: 'foo/add'
+    });
+
+    setTimeout(() => {
+      expect(store.getState().foo).toEqual(1);
+      expect(store.getState().bar).toEqual(1);
       done();
     }, 100);
   });
