@@ -3,6 +3,47 @@ import yax from '../src/index';
 import { count, delay } from './count';
 
 describe('basic', () => {
+  it('basic without modules', (done) => {
+    const store = yax({
+      state: {
+        foo: 0,
+        bar: 0
+      },
+      reducers: {
+        addFooDone (state, payload) {
+          const foo = state.foo + payload;
+          return { ...state, foo };
+        },
+        addBarDone (state, payload) {
+          const bar = state.bar + payload;
+          return { ...state, bar };
+        }
+      },
+      actions: {
+        async addFoo ({ commit }) {
+          await delay(1);
+          commit('addFooDone', 1);
+        },
+        async addBar ({ commit }) {
+          await delay(1);
+          commit('addBarDone', 1);
+        },
+        async addAll ({ dispatch }) {
+          await dispatch('addFoo');
+          await dispatch('addBar');
+        }
+      }
+    });
+
+    store.dispatch({ type: 'addAll' });
+
+    setTimeout(() => {
+      expect(store.getState().foo).toEqual(1);
+      expect(store.getState().bar).toEqual(1);
+      done();
+    }, 100);
+  });
+
   it('basic module', (done) => {
     const store = yax({
       modules: { count }
@@ -114,6 +155,9 @@ describe('basic', () => {
     // assert initial modules still work as expected after unregister
     store.dispatch({ type: 'foo/incFoo' });
     expect(store.getState().foo.bar).toEqual(3);
+
+    expect(() => store.registerModule({})).toThrow(/module path must be a string or an Array/);
+    expect(() => store.unregisterModule({})).toThrow(/module path must be a string or an Array/);
   });
 
   it('basic select', () => {

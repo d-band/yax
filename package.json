@@ -1,6 +1,6 @@
 {
   "name": "yax",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Yet another store using redux. (Inspired by vuex and dva)",
   "main": "lib/index.js",
   "module": "es/index.js",

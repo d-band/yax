@@ -1,8 +1,8 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import ModuleCollection from './module/module-collection';
 import { isObject, isPromise, assert } from './util';
 
-export default function yax (options = {}) {
+export default function yax (options = {}, enhancer) {
   let _actions = {};
   let _modules = new ModuleCollection(options);
 
@@ -22,10 +22,14 @@ export default function yax (options = {}) {
     }
     return next(action);
   };
+  const enhancers = [applyMiddleware(middleware)];
+  if (enhancer) {
+    enhancers.push(enhancer);
+  }
   const _store = createStore(
     _modules.makeReducers(),
     options.state || {},
-    applyMiddleware(middleware)
+    compose(...enhancers)
   );
 
   function registerModule (path, rawModule) {
@@ -128,3 +132,10 @@ export default function yax (options = {}) {
     _resetReducers();
   }
 }
+
+export {
+  combineReducers,
+  bindActionCreators,
+  applyMiddleware,
+  compose
+} from 'redux';
