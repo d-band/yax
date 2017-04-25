@@ -85,6 +85,17 @@ render(
 );
 ```
 
+Usage with `redux-persist`
+
+```
+import yax from 'yax';
+import { persistStore, autoRehydrate } from 'redux-persist';
+
+const store = yax(options, autoRehydrate());
+
+persistStore(store, { storage: Storage });
+```
+
 ## API Reference
 
 ```
