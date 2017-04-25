@@ -85,6 +85,71 @@ render(
 );
 ```
 
+## API Reference
+
+```
+import yax, {
+  combineReducers,
+  bindActionCreators,
+  applyMiddleware,
+  compose
+} from 'yax';
+```
+
+### `yax(options = {}, [enhancer])`
+
+
+- **`options.state`**
+
+  The root state object for the store.
+  
+- **`options.reducers`**
+
+  ```
+  { [type: string]: Reducer }
+  ```
+  ```
+  type Reducer = (state, payload) => state
+  ```
+  > `state` will be module local state if defined in a module
+  
+- **`options.actions`**
+
+  ```
+  { [type: string]: Action }
+  ```
+  ```
+  type Action = ({ dispatch, commit, select }, payload) => Promise
+  ```
+  ```
+  type dispatch = (type, payload, isRoot) => Promise
+  type commit   = (type, payload, isRoot) => any
+  ```
+  > `isRoot=true` will dispatch actions or commit reducers in the global namespace
+  
+  ```
+  type select   = (Selector) => Selector(state, rootState)
+  type Selector = (state, rootState) => any
+  ```
+  > `select()` without `Selector` will return `state`
+  
+- **`options.modules`**
+
+  ```
+  { [type: string]: Module }
+  ```
+  ```
+  type Module = { state, reducers, actions, modules }
+  ```
+  
+- **`enhancer`**
+
+  ```
+  type StoreEnhancer = (next: StoreCreator) => StoreCreator
+  ```
+  > [redux store enhancer](http://redux.js.org/docs/Glossary.html#store-enhancer)
+
+
 ## Report a issue
 
 * [All issues](https://github.com/d-band/yax/issues)
