@@ -1,6 +1,8 @@
 Yax (Yet Another Store)
 =======================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/d-band/yax.svg)](https://greenkeeper.io/)
+
 > Yet another store using redux. (Inspired by vuex and dva)
 
 [![NPM version](https://img.shields.io/npm/v/yax.svg)](https://www.npmjs.com/package/yax)
