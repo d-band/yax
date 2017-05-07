@@ -76,7 +76,11 @@ describe('basic', () => {
           },
           actions: {
             async add ({ dispatch, commit }) {
-              await dispatch('bar/add', null, true);
+              await dispatch('bar/add', 2, true);
+              await dispatch({
+                type: 'bar/add',
+                payload: 2
+              }, true);
               commit('addDone', 1);
             }
           }
@@ -89,9 +93,9 @@ describe('basic', () => {
             }
           },
           actions: {
-            async add ({ dispatch, commit }) {
+            async add ({ dispatch, commit }, payload) {
               await delay(1);
-              commit('addDone', 1);
+              commit('addDone', payload);
             }
           }
         }
@@ -104,7 +108,7 @@ describe('basic', () => {
 
     setTimeout(() => {
       expect(store.getState().foo).toEqual(1);
-      expect(store.getState().bar).toEqual(1);
+      expect(store.getState().bar).toEqual(4);
       done();
     }, 100);
   });

@@ -66,10 +66,15 @@ export default function yax (options = {}, enhancer) {
 
   // make localized dispatch, commit and state
   function _makeLocalContext (namespace, path) {
-    const wrapFn = (_type, payload, isRoot) => {
-      const type = isRoot ? _type : namespace + _type;
+    const wrapFn = (type, payload, isRoot) => {
+      let action = { type, payload };
+      if (isObject(type) && type.type) {
+        isRoot = payload;
+        action = type;
+      }
+      action.type = isRoot ? action.type : namespace + action.type;
       // redux dispatch
-      return _store.dispatch({ type, payload });
+      return _store.dispatch(action);
     };
     const local = {
       dispatch: wrapFn,
