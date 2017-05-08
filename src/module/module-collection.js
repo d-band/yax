@@ -1,5 +1,5 @@
 import Module from './module';
-import { compose, forEachValue } from '../util';
+import { composeReducer, forEachValue } from '../util';
 
 export default class ModuleCollection {
   constructor (rawRootModule) {
@@ -31,7 +31,7 @@ export default class ModuleCollection {
       }
       return state;
     };
-    return compose(unregister, this.root.makeReducers());
+    return composeReducer(unregister, this.root.makeReducers());
   }
 
   getNamespace (path) {

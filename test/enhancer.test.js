@@ -1,6 +1,5 @@
 import expect from 'expect';
-import yax, { combineReducers, applyMiddleware } from '../src/index';
-import { compose } from '../src/util';
+import yax, { combineReducers, applyMiddleware, composeReducer } from '../src/index';
 
 describe('enhancer', () => {
   it('enhancer basic', () => {
@@ -15,7 +14,7 @@ describe('enhancer', () => {
             return state;
         }
       };
-      return createStore(compose(
+      return createStore(composeReducer(
         reducer,
         combineReducers({ counter })
       ), preloadedState, enhancer);
