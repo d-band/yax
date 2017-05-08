@@ -17,7 +17,7 @@ export function assert (condition, msg) {
   if (!condition) throw new Error(`[yax] ${msg}`);
 }
 
-export function composeReducer (...reducers) {
+export function composeReducers (...reducers) {
   return (state, action) => {
     return reducers.reduce((p, r) => r(p, action), state);
   };

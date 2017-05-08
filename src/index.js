@@ -144,4 +144,4 @@ export {
   applyMiddleware,
   compose
 } from 'redux';
-export { composeReducer } from './util';
+export { composeReducers } from './util';
