@@ -1,5 +1,4 @@
-import { combineReducers } from 'redux';
-import { forEachValue } from '../util';
+import { forEachValue, mapReducers } from '../util';
 
 export default class Module {
   constructor (rawModule) {
@@ -61,14 +60,11 @@ export default class Module {
       }
       if (Object.keys(this._children).length) {
         const tmp = {};
-        forEachValue(state, (data, key) => {
-          tmp[key] = (v = data) => v;
-        });
         this.forEachChild((child, key) => {
           tmp[key] = child.makeReducers();
         });
 
-        return combineReducers(tmp)(state, action);
+        return mapReducers(tmp)(state, action);
       }
       return state;
     };
