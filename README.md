@@ -67,7 +67,7 @@ store.dispatch({
 
 Usage with React
 
-```
+```javascript
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -89,13 +89,44 @@ render(
 
 Usage with `redux-persist`
 
-```
+```javascript
 import yax from 'yax';
 import { persistStore, autoRehydrate } from 'redux-persist';
 
 const store = yax(options, autoRehydrate());
 
 persistStore(store, { storage: Storage });
+```
+
+Usage with `react-navigation`
+
+```javascript
+import yax, { compose, composeReducers, mapReducers } from 'yax';
+import { StackNavigator } from 'react-navigation';
+
+const AppNavigator = StackNavigator(AppRouteConfigs);
+const initialAction = AppNavigator.router.getActionForPathAndParams('Login');
+const initialState = AppNavigator.router.getStateForAction(initialAction);
+
+const navReducer = (state = initialState, action) => {
+  const nextState = AppNavigator.router.getStateForAction(action, state);
+  return nextState || state;
+};
+const navEnhancer = createStore => (reducer, preloadedState, enhancer) => {
+  const appReducer = composeReducers(
+    reducer,
+    mapReducers({
+      nav: navReducer
+    })
+  );
+  return createStore(appReducer, preloadedState, enhancer);
+};
+const store = yax({
+  modules: { foo, bar }
+}, compose(
+  navEnhancer,
+  otherEnhancers
+));
 ```
 
 ## API Reference
@@ -105,7 +136,9 @@ import yax, {
   combineReducers,
   bindActionCreators,
   applyMiddleware,
-  compose
+  compose,
+  composeReducers,
+  mapReducers
 } from 'yax';
 ```
 
@@ -162,6 +195,24 @@ import yax, {
   ```
   > [redux store enhancer](http://redux.js.org/docs/Glossary.html#store-enhancer)
 
+### `composeReducers(...reducers)`
+
+```javascript
+const f = (state, action) => {};
+const g = (state, action) => {};
+// (state, action) => g(f(state, action), action)
+const reducer = composeReducers(f, g);
+```
+
+### `mapReducers(reducers)`
+
+> Like with `combineReducers` but composability. [More](https://github.com/reactjs/redux/pull/2059#issuecomment-256798218)
+
+```javascript
+const foo = (state, action) => {};
+const bar = (state, action) => {};
+const reducer = mapReducers({ foo, bar });
+```
 
 ## Report a issue
 
