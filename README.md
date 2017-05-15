@@ -1,15 +1,14 @@
 Yax (Yet Another Store)
 =======================
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/d-band/yax.svg)](https://greenkeeper.io/)
-
-> Yet another store using redux. (Inspired by vuex and dva)
-
 [![NPM version](https://img.shields.io/npm/v/yax.svg)](https://www.npmjs.com/package/yax)
 [![NPM downloads](https://img.shields.io/npm/dm/yax.svg)](https://www.npmjs.com/package/yax)
 [![Build Status](https://travis-ci.org/d-band/yax.svg?branch=master)](https://travis-ci.org/d-band/yax)
 [![Coverage Status](https://coveralls.io/repos/github/d-band/yax/badge.svg?branch=master)](https://coveralls.io/github/d-band/yax?branch=master)
 [![Dependency Status](https://david-dm.org/d-band/yax.svg)](https://david-dm.org/d-band/yax)
+[![Greenkeeper badge](https://badges.greenkeeper.io/d-band/yax.svg)](https://greenkeeper.io/)
+
+> Yet another store using redux. (Inspired by vuex and dva)
 
 ## Getting Started
 
