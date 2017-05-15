@@ -141,7 +141,7 @@ commit(BACK, true);
 
 ## API Reference
 
-```
+```javascript
 import yax, {
   // Redux original functions
   combineReducers,
