@@ -143,10 +143,12 @@ commit(BACK, true);
 
 ```
 import yax, {
+  // Redux original functions
   combineReducers,
   bindActionCreators,
   applyMiddleware,
   compose,
+  // Yax helper functions
   composeReducers,
   mapReducers
 } from 'yax';
