@@ -127,6 +127,16 @@ const store = yax({
   navEnhancer,
   otherEnhancers
 ));
+
+
+// In modules with `commit`
+import { NavigationActions } from 'react-navigation';
+
+const LOGIN = NavigationActions.navigate({ routeName: 'Login' });
+const BACK = NavigationActions.back();
+...
+commit(LOGIN, true);
+commit(BACK, true);
 ```
 
 ## API Reference
