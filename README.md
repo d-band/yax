@@ -149,7 +149,9 @@ import yax, {
   compose,
   // Yax helper functions
   composeReducers,
-  mapReducers
+  mapReducers,
+  mapState,
+  mapActions
 } from 'yax';
 ```
 
@@ -223,6 +225,28 @@ const reducer = composeReducers(f, g);
 const foo = (state, action) => {};
 const bar = (state, action) => {};
 const reducer = mapReducers({ foo, bar });
+```
+
+### `mapState` and `mapActions`
+
+> Used for [react-redux `connect`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)
+
+```
+const App = ({ foo, bar, addFoo, addBar }) => {
+  addFoo(payload);
+  addBar(payload);
+  return <span>{foo} / {bar}</span>;
+};
+connect(
+  mapState({
+    foo: 'foo/value',
+    bar: 'bar/value'
+  }),
+  mapActions({
+    addFoo: 'foo/add',
+    addBar: 'bar/add'
+  })
+)(App);
 ```
 
 ## Report a issue
