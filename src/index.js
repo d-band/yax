@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import ModuleCollection from './module/module-collection';
-import { isObject, isPromise, assert } from './util';
+import { isObject, isPromise, getNestedState, assert } from './util';
 
 export default function yax (options = {}, enhancer) {
   let _actions = {};
@@ -58,12 +58,6 @@ export default function yax (options = {}, enhancer) {
    * Private Methods
    */
 
-  function _getNestedState (state, path) {
-    return path.length
-      ? path.reduce((state, key) => state[key], state)
-      : state;
-  }
-
   // make localized dispatch, commit and state
   function _makeLocalContext (namespace, path) {
     const wrapFn = (type, payload, isRoot) => {
@@ -82,7 +76,7 @@ export default function yax (options = {}, enhancer) {
       select: (fn) => {
         // redux state
         const rootState = _store.getState();
-        const state = _getNestedState(rootState, path);
+        const state = getNestedState(rootState, path);
         return fn ? fn(state, rootState) : state;
       }
     };
@@ -145,3 +139,4 @@ export {
   compose
 } from 'redux';
 export { composeReducers, mapReducers } from './util';
+export { mapState, mapActions } from './helpers';

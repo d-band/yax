@@ -30,3 +30,9 @@ export function mapReducers (reducers) {
     return Object.assign({}, state, combined(combinedState, action));
   };
 }
+
+export function getNestedState (state, path) {
+  return path.length
+    ? path.reduce((state, key) => state[key], state)
+    : state;
+}
