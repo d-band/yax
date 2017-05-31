@@ -22,14 +22,11 @@ export default function yax (options = {}, enhancer) {
     }
     return next(action);
   };
-  const enhancers = [applyMiddleware(middleware)];
-  if (enhancer) {
-    enhancers.push(enhancer);
-  }
+  const rootMW = applyMiddleware(middleware);
   const _store = createStore(
     _modules.makeReducers(),
     options.state || {},
-    compose(...enhancers)
+    enhancer ? compose(enhancer, rootMW) : rootMW
   );
 
   function registerModule (path, rawModule) {
