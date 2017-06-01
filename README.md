@@ -10,6 +10,11 @@ Yax (Yet Another Store)
 
 > Yet another store using redux. (Inspired by vuex and dva)
 
+## Demos & Plugins
+
+- [yax-router](https://github.com/d-band/yax-router): Router plugin for yax (Using react-router).
+- [HackerNews](https://github.com/d-band/yax-hackernews): HackerNews clone built with Yax, based on dva-hackernews.
+
 ## Getting Started
 
 ### Install
@@ -17,11 +22,6 @@ Yax (Yet Another Store)
 ```bash
 $ npm install --save yax
 ```
-
-### Demos and Plugins
-
-- [yax-router](https://github.com/d-band/yax-router): Router plugin for yax (Using react-router).
-- [HackerNews](https://github.com/d-band/yax-hackernews): HackerNews clone built with Yax, based on dva-hackernews.
 
 ### Usage Example
 
