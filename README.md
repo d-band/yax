@@ -18,6 +18,11 @@ Yax (Yet Another Store)
 $ npm install --save yax
 ```
 
+### Demos and Plugins
+
+- [yax-router](https://github.com/d-band/yax-router): Router plugin for yax (Using react-router).
+- [HackerNews](https://github.com/d-band/yax-hackernews): HackerNews clone built with Yax, based on dva-hackernews.
+
 ### Usage Example
 
 ```javascript
