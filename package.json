@@ -68,7 +68,7 @@
     "eslint-plugin-node": "^5.0.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
-    "expect": "^1.20.2",
+    "expect": "^21.0.0",
     "mocha": "^3.2.0",
     "nyc": "^11.0.0"
   }
