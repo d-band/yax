@@ -1,16 +1,25 @@
 {
-  "presets": ["stage-2"],
-  "plugins": ["transform-runtime"],
+  "plugins": [
+    "@babel/plugin-transform-runtime"
+  ],
   "env": {
     "cjs": {
-      "presets": [["env", {"loose": true}]]
+      "presets": [
+        ["@babel/preset-env", { "loose": true }]
+      ]
     },
     "es": {
-      "presets": [["env", {"loose": true, "modules": false}]]
+      "presets": [
+        ["@babel/preset-env", { "loose": true, "modules": false }]
+      ]
     },
     "test": {
-      "presets": [["env", {"loose": true}]],
-      "plugins": ["istanbul"]
+      "presets": [
+        ["@babel/preset-env", { "loose": true }]
+      ],
+      "plugins": [
+        "istanbul"
+      ]
     }
   }
 }
