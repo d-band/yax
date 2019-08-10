@@ -4,7 +4,7 @@ import { isObject, isPromise, getNestedState, assert } from './util';
 
 export default function yax (options = {}, enhancer) {
   let _actions = {};
-  let _modules = new ModuleCollection(options);
+  const _modules = new ModuleCollection(options);
 
   // init root module.
   // this also recursively registers all sub-modules
