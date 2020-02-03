@@ -31,7 +31,7 @@ export default function yax (options = {}, enhancer) {
 
   function registerModule (path, rawModule) {
     if (typeof path === 'string') path = [path];
-    assert(Array.isArray(path), `module path must be a string or an Array.`);
+    assert(Array.isArray(path), 'module path must be a string or an Array.');
     _modules.register(path, rawModule);
     _installModule(path, _modules.get(path));
     _resetReducers();
@@ -39,7 +39,7 @@ export default function yax (options = {}, enhancer) {
 
   function unregisterModule (path) {
     if (typeof path === 'string') path = [path];
-    assert(Array.isArray(path), `module path must be a string or an Array.`);
+    assert(Array.isArray(path), 'module path must be a string or an Array.');
     _modules.unregister(path);
     _resetStore();
     _store.dispatch({ type: '@@yax/unregister', path });
